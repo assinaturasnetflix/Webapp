@@ -5,7 +5,7 @@ TOKEN = '8036423963:AAHkPQh2493Wx0FRTOQ590g1_qm9ot0BYcU'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("Abrir Web App", web_app={"url": "https://assinaturasnetflix.github.io/webapp/"})]
+        [InlineKeyboardButton("Abrir Web App", web_app={"url": "https://glistening-bienenstitch-99fa54.netlify.app/"})]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text('Clique no botão para abrir o Web App:', reply_markup=reply_markup)
