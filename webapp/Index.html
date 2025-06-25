@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel do Usuário Telegram</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      padding: 20px;
+      text-align: center;
+    }
+    .user-info {
+      background: white;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 320px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    h2 {
+      margin-bottom: 15px;
+    }
+    .field {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #2aabee;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background: #1d8ad3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bem-vindo ao seu painel</h2>
+  <div class="user-info" id="userInfo">
+    <!-- Aqui aparecerão os dados do usuário -->
+  </div>
+  <button onclick="enviarDados()">Enviar dados para o bot</button>
 
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const user = tg.initDataUnsafe.user;
+
+    function mostrarDados() {
+      if (!user) {
+        document.getElementById('userInfo').innerText = "Não foi possível obter os dados do usuário.";
+        return;
+      }
+
+      document.getElementById('userInfo').innerHTML = `
+        <div class="field"><strong>ID:</strong> ${user.id}</div>
+        <div class="field"><strong>Nome:</strong> ${user.first_name || 'Não disponível'}</div>
+        <div class="field"><strong>Sobrenome:</strong> ${user.last_name || 'Não disponível'}</div>
+        <div class="field"><strong>Username:</strong> ${user.username ? '@' + user.username : 'Não disponível'}</div>
+        <div class="field"><strong>Idioma:</strong> ${user.language_code || 'Não disponível'}</div>
+      `;
+    }
+
+    function enviarDados() {
+      const mensagem = `Usuário: ${user.first_name || 'Desconhecido'} (@${user.username || 'sem username'}), ID: ${user.id}`;
+      tg.sendData(mensagem);
+    }
+
+    mostrarDados();
+  </script>
+</body>
+</html>
