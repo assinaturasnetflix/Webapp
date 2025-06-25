@@ -8,7 +8,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     Envia uma mensagem com um botão que abre o Web App dentro do Telegram.
     """
     keyboard = [
-        [InlineKeyboardButton("Abrir Web App", web_app={"url": "https://assinaturasnetflix.github.io/Webapp/"})]
+        [InlineKeyboardButton("Abrir Web App", web_app={"url": "https://assinaturasnetflix.github.io/webapp/"})]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text('Clique no botão para abrir o Web App:', reply_markup=reply_markup)
@@ -22,10 +22,10 @@ async def handle_webapp_data(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
-    
+
     app.add_handler(CommandHandler('start', start))
-    app.add_handler(MessageHandler(filters.WEB_APP_DATA, handle_webapp_data))
-    
+    app.add_handler(MessageHandler(filters.UpdateType.WEB_APP_DATA, handle_webapp_data))
+
     print("Bot rodando...")
     app.run_polling()
 
